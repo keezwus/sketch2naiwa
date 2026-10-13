@@ -1,0 +1,12 @@
+# 行尾与编码保护
+# Windows 批处理必须保持原样字节（GBK + CRLF），否则 cmd 解析中文会出错
+*.bat -text
+
+# 二进制资源
+*.m4a binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.safetensors binary
+*.pth binary
+*.onnx binary

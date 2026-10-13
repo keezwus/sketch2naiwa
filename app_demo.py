@@ -8,6 +8,7 @@
 Run: python app_demo.py  ->  http://127.0.0.1:7870
 """
 
+import base64
 import os
 
 import numpy as np
@@ -24,6 +25,16 @@ PIX2_CHOICE = "pix2pix 256px 极速版"
 LORA_STEPS, LORA_W, LORA_GUIDE = 10, 1.4, 3.5
 
 _pix2_ckpt = None
+
+
+def _bgm_html():
+    """Hidden one-shot sound; played each time 生成奶娃 is clicked (see gen_btn js)."""
+    try:
+        with open(os.path.join(core.HERE, "assets", "naiwaSound.m4a"), "rb") as f:
+            b64 = base64.b64encode(f.read()).decode("ascii")
+    except Exception:
+        return ""
+    return f'<audio id="naiwa-bgm" preload="auto" src="data:audio/mp4;base64,{b64}"></audio>'
 
 
 def generate(canvas, model_type):
@@ -67,11 +78,18 @@ with gr.Blocks(title="Sketch2Naiwa 演示") as demo:
                 label="模型",
             )
             gen_btn = gr.Button("生成奶娃", variant="primary", size="lg")
+            gr.HTML(_bgm_html())
         with gr.Column(scale=1):
             out_img = gr.Image(label="奶娃", height=512, width=512)
             out_info = gr.Textbox(label="状态", interactive=False, lines=2)
 
     gen_btn.click(generate, [canvas, model_radio], [out_img, out_info])
+    gen_btn.click(
+        None, None, None,
+        js=("() => { const a = document.getElementById('naiwa-bgm'); "
+            "if (!a) return; a.currentTime = 0; a.volume = 0.5; "
+            "a.play().catch(() => {}); }"),
+    )
     clear_btn.click(lambda: core.new_canvas("#000000"), None, [canvas], queue=False)
 
 if __name__ == "__main__":

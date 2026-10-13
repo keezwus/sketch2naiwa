@@ -1,11 +1,14 @@
 @echo off
-chcp 65001 >nul
-cd /d %~dp0
+cd /d "%~dp0"
+where python >nul 2>nul
+if errorlevel 1 echo [´íÎó] Î´ÕÒµ½ python ÃüÁî£¬ÇëÏÈ°²×° Python ²¢¹´Ñ¡ Add to PATH
+if errorlevel 1 pause
+if errorlevel 1 exit /b 1
 set NO_PROXY=127.0.0.1,localhost
 set no_proxy=127.0.0.1,localhost
 set REMBG_HOME=%cd%\models\rembg
-echo [å®žæ—¶ç›´æ’­] æ‰‹æœºæ‘„åƒå¤´ -^> ç”µè„‘å®žæ—¶å˜å¥¶å¨ƒ
-echo å¯åŠ¨åŽæ‰‹æœºæµè§ˆå™¨æ‰“å¼€ï¼šhttps://æœ¬æœºå±€åŸŸç½‘IP:7863 ï¼ˆè¯ä¹¦è­¦å‘Šé€‰"ç»§ç»­è®¿é—®"ï¼‰
+echo [ÊµÊ±Ö±²¥] ÊÖ»úÉãÏñÍ· -^> µçÄÔÊµÊ±±äÄÌÍÞ
+echo Æô¶¯ºóÊÖ»úä¯ÀÀÆ÷´ò¿ª£ºhttps://±¾»ú¾ÖÓòÍøIP:7863£¨Ö¤Êé¾¯¸æÑ¡ ¼ÌÐø·ÃÎÊ£©
 start "Sketch2Naiwa Live Server" python tools\live_web_lora.py
 timeout /t 10 /nobreak >nul
 python tools\live_view_lora.py

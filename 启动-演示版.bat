@@ -1,10 +1,13 @@
 @echo off
-chcp 65001 >nul
-cd /d %~dp0
+cd /d "%~dp0"
+where python >nul 2>nul
+if errorlevel 1 echo [´íÎó] Î´ÕÒµ½ python ÃüÁî£¬ÇëÏÈ°²×° Python ²¢¹´Ñ¡ Add to PATH
+if errorlevel 1 pause
+if errorlevel 1 exit /b 1
 set NO_PROXY=127.0.0.1,localhost
 set no_proxy=127.0.0.1,localhost
 set REMBG_HOME=%cd%\models\rembg
-echo [æ¼”ç¤ºç‰ˆ] ç”»æ¿ç”Ÿå›¾ + æ¨¡åž‹é€‰æ‹©ï¼ˆLoRA 512px / pix2pix 256pxï¼‰
-echo æ­£åœ¨åŠ è½½æ¨¡åž‹ï¼ˆé¦–æ¬¡çº¦ 1 åˆ†é’Ÿï¼‰ï¼Œå®ŒæˆåŽæµè§ˆå™¨ä¼šè‡ªåŠ¨æ‰“å¼€ http://127.0.0.1:7870
+echo [ÑÝÊ¾°æ] »­°åÉúÍ¼ + Ä£ÐÍÑ¡Ôñ£¨LoRA 512px / pix2pix 256px£©
+echo ÕýÔÚ¼ÓÔØÄ£ÐÍ£¨Ê×´ÎÔ¼ 1 ·ÖÖÓ£©£¬Íê³Éºóä¯ÀÀÆ÷»á×Ô¶¯´ò¿ª http://127.0.0.1:7870
 python app_demo.py
 pause

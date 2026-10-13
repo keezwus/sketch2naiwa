@@ -1,10 +1,13 @@
 @echo off
-chcp 65001 >nul
-cd /d %~dp0
+cd /d "%~dp0"
+where python >nul 2>nul
+if errorlevel 1 echo [´íÎó] Î´ÕÒµ½ python ÃüÁî£¬ÇëÏÈ°²×° Python ²¢¹´Ñ¡ Add to PATH
+if errorlevel 1 pause
+if errorlevel 1 exit /b 1
 set NO_PROXY=127.0.0.1,localhost
 set no_proxy=127.0.0.1,localhost
 set REMBG_HOME=%cd%\models\rembg
-echo [å®Œæ•´ç‰ˆ] åŒ Appï¼špix2pix å®Œæ•´ç‰ˆ(7861) + LoRA å®Œæ•´ç‰ˆ(7864)
-echo ç”»æ¿ / å›¾ç‰‡ / è§†é¢‘ / å‚æ•°çŸ©é˜µæ‰«æï¼Œæµè§ˆå™¨ä¼šè‡ªåŠ¨æ‰“å¼€
+echo [ÍêÕû°æ] Ë« App£ºpix2pix ÍêÕû°æ 7861 + LoRA ÍêÕû°æ 7864
+echo »­°å / Í¼Æ¬ / ÊÓÆµ / ²ÎÊý¾ØÕóÉ¨Ãè£¬ä¯ÀÀÆ÷»á×Ô¶¯´ò¿ª
 python serve_naiwa.py
 pause
