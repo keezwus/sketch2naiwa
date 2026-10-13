@@ -1,0 +1,37 @@
+# Sketch2Naiwa — 简笔画 / 图片 / 视频 / 实时直播 → 奶娃生成
+# Python 3.13, tested on Windows with NVIDIA RTX 5060 Laptop (8GB VRAM)
+
+# --- core ---
+torch==2.8.0
+torchvision==0.23.0
+numpy==2.3.4
+Pillow==11.3.0
+opencv-python==5.0.0.93
+
+# --- training (LoRA) ---
+diffusers==0.41.0
+transformers==5.19.0
+accelerate==1.15.0
+peft==0.21.2
+safetensors==0.8.0
+huggingface_hub==1.33.0
+einops==0.8.2
+
+# --- apps (Gradio) ---
+gradio==5.49.1
+
+# --- cutout / edges ---
+rembg==2.0.85
+onnxruntime==1.20.1
+
+# --- live streaming server ---
+fastapi==0.120.4
+uvicorn==0.38.0
+websockets==15.0.1
+cryptography==46.0.3
+
+# --- downloads (hf-mirror friendly) ---
+requests==2.32.5
+
+# note: install the CUDA build of torch matching your GPU, e.g.
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu129

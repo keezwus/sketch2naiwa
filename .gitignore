@@ -1,0 +1,22 @@
+# ---- 运行期产物 ----
+__pycache__/
+*.pyc
+*.log
+.gradio/
+certs/
+data_raw/live/
+data_raw/video_out/
+data_raw/naiwa_img2img/
+*_pid.txt
+
+# ---- 第三方基础模型（体积大，约 4GB）----
+# 本地文件夹已附带；如需重新获取，运行 setup/download_sd15_stack.py
+models/sd15-base/
+models/controlnet-scribble/
+models/lcm-lora-sd15/
+models/rembg/
+
+# ---- 大尺寸自训权重（207MB）----
+# 本地文件夹已附带（checkpoints/naiwa_pix2pix2/180_net_G.pth）
+# 如需 git 托管，请使用 Git LFS 或 GitHub Release 附件
+pytorch-CycleGAN-and-pix2pix/checkpoints/naiwa_pix2pix2/180_net_G.pth
