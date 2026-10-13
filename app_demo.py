@@ -20,6 +20,13 @@ import app_naiwa as core
 PORT = 7870
 BLACK = np.zeros((512, 512, 3), np.uint8)
 
+# 手机端体验：画布容器保持正方形（默认会按固定高度拉长，上下留出空白带，
+# 空白带仍属于画布元素 touch-action:none，会挡住页面滚动）
+CSS = """
+#naiwa-canvas { height: auto !important; aspect-ratio: 1 / 1; }
+#naiwa-canvas .image-container { height: auto !important; aspect-ratio: 1 / 1; }
+"""
+
 LORA_CHOICE = "LoRA 512px 精细版（推荐）"
 PIX2_CHOICE = "pix2pix 256px 极速版"
 LORA_STEPS, LORA_W, LORA_GUIDE = 10, 1.4, 3.5
@@ -49,7 +56,7 @@ def generate(canvas, model_type):
         return None, f"生成失败：{e!r}"
 
 
-with gr.Blocks(title="Sketch2Naiwa 演示") as demo:
+with gr.Blocks(title="Sketch2Naiwa 演示", css=CSS) as demo:
     gr.Markdown(
         "# 画个轮廓，变奶娃\n"
         "在画板上随手画一个形状，点 **生成奶娃**。"
@@ -69,6 +76,7 @@ with gr.Blocks(title="Sketch2Naiwa 演示") as demo:
                 width=460,
                 type="numpy",
                 label="画布",
+                elem_id="naiwa-canvas",
             )
             with gr.Row():
                 clear_btn = gr.Button("清空画布（黑底）")
