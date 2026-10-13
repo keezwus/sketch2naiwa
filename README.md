@@ -56,6 +56,26 @@ sketch2naiwa/
 - 局域网内其他电脑/手机直接访问 `http://<本机IP>:7870` 等端口；
 - 实时直播为自签 HTTPS 证书，手机浏览器提示“不安全”时选择“继续访问”。
 
+## 从 GitHub 克隆后如何运行（同学 / 换机指引）
+
+```bash
+git clone https://github.com/keezwus/sketch2naiwa.git
+cd sketch2naiwa
+pip install -r requirements.txt
+# torch 按显卡装 CUDA 版（本项目用 cu129）：
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+python setup/download_all.py   # 自动补齐：pix2pix 权重(207MB) + SD1.5 基础栈(~4GB)
+```
+
+然后双击 `启动-演示版.bat`（或 `启动-完整版.bat` / `启动-实时直播.bat`）即可。
+
+要点：
+- 207MB 的 pix2pix 权重不在 git 仓库内，`download_all.py` 会自动从
+  [Release v1.0](https://github.com/keezwus/sketch2naiwa/releases/tag/v1.0) 下载（断点续传）；
+- SD1.5 基础栈走 hf-mirror 镜像下载（约 4GB），HED 边缘/抠图模型首次使用时自动补下；
+- 国内网络拉 GitHub 大文件慢时记得开代理；
+- 如果拿到的是“完整文件夹版”（U 盘/局域网拷贝），所有模型已内置，双击脚本即可，无需任何下载。
+
 ## 两条产品线（最优模型）
 
 | | 产品线 A · 极速版 | 产品线 B · 精细版 |
@@ -73,8 +93,8 @@ sketch2naiwa/
 
 - Windows + NVIDIA GPU（本项目在 RTX 5060 Laptop 8GB 上测试）
 - Python 3.13，依赖见 `requirements.txt`（torch 需按 CUDA 版本单独安装）
-- 如 `models/` 中第三方基础模型缺失，运行 `python setup/download_sd15_stack.py` 重新下载
-  （hf-mirror 镜像，断点续传）
+- 如 `models/` 中第三方基础模型缺失，运行 `python setup/download_all.py` 重新下载
+  （含 Release 权重与 hf-mirror 基础栈，断点续传）
 
 ## 文档索引
 
