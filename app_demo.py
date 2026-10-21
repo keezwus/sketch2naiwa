@@ -9,6 +9,7 @@ Run: python app_demo.py  ->  http://127.0.0.1:7870
 """
 
 import base64
+import datetime
 import os
 
 import numpy as np
@@ -42,6 +43,13 @@ def _bgm_html():
     except Exception:
         return ""
     return f'<audio id="naiwa-bgm" preload="auto" src="data:audio/mp4;base64,{b64}"></audio>'
+
+
+def log_visit():
+    log_path = os.path.join(core.HERE, "logs", "visits.log")
+    os.makedirs(os.path.dirname(log_path), exist_ok=True)
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write(f"{datetime.datetime.now():%Y-%m-%d %H:%M:%S}\n")
 
 
 def generate(canvas, model_type):
@@ -91,6 +99,14 @@ with gr.Blocks(title="Sketch2Naiwa 演示", css=CSS) as demo:
             out_img = gr.Image(label="奶娃", height=512, width=512)
             out_info = gr.Textbox(label="状态", interactive=False, lines=2)
 
+    gr.HTML(
+        '<div style="text-align:center; margin-top:12px; font-size:14px;">'
+        'GitHub：<a href="https://github.com/keezwus/sketch2naiwa" target="_blank" rel="noopener">'
+        'https://github.com/keezwus/sketch2naiwa</a>'
+        "</div>"
+    )
+
+    demo.load(log_visit, None, None)
     gen_btn.click(generate, [canvas, model_radio], [out_img, out_info])
     gen_btn.click(
         None, None, None,
