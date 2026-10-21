@@ -18,14 +18,14 @@ huggingface_hub==1.33.0
 einops==0.8.2
 
 # --- apps (Gradio) ---
-gradio==5.49.1
+gradio==6.30.0
 
 # --- cutout / edges ---
 rembg==2.0.85
 onnxruntime==1.20.1
 
 # --- live streaming server ---
-fastapi==0.120.4
+fastapi==0.146.0
 uvicorn==0.38.0
 websockets==15.0.1
 cryptography==46.0.3
